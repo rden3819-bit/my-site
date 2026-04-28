@@ -1,0 +1,158 @@
+/* =========================
+   対応ジャンル 強化
+   ========================= */
+.genre-list{
+  list-style:none;
+  padding:0;
+  max-width:720px;
+  margin:40px auto 0;
+  display:grid;
+  gap:20px;
+}
+
+.genre-list li{
+  background:#f6f6f6;
+  border-radius:18px;
+  padding:20px 24px;
+  position:relative;
+  transition:
+    transform .35s ease,
+    box-shadow .35s ease;
+}
+
+.genre-list li:hover{
+  transform:translateY(-4px);
+  box-shadow:0 18px 36px rgba(0,0,0,0.1);
+}
+
+/* タイトル行 */
+.genre-list .title{
+  font-weight:700;
+  font-size:18px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+/* 説明文 */
+.genre-list p{
+  margin:8px 0 0;
+  font-size:14px;
+  color:#555;
+  line-height:1.6;
+}
+
+/* 主役カード */
+.genre-list li.main{
+  background:
+    linear-gradient(
+      120deg,
+      rgba(255,60,172,0.08),
+      rgba(0,234,255,0.08)
+    ),
+    #f8f8f8;
+  border:2px solid rgba(255,60,172,0.4);
+}
+
+/* =========================
+   料金プランにも対応
+   ========================= */
+.plan{
+  position:relative;
+}
+
+/* =========================
+   外周トレース SVG（一本線が走る）
+   ========================= */
+.trace-ring{
+  position:absolute;
+  inset:-8px;
+  pointer-events:none;
+  opacity:0;
+}
+
+.genre-list li:hover .trace-ring,
+.plan:hover .trace-ring{
+  opacity:1;
+}
+
+.trace-ring svg{
+  width:100%;
+  height:100%;
+}
+
+.trace-path{
+  fill:none;
+  stroke:url(#traceGradient);
+  stroke-width:3;
+  stroke-linecap:round;
+  filter:drop-shadow(0 0 6px rgba(255,60,172,.8));
+}
+
+/* =========================
+   マウストレイル（保持）
+   ========================= */
+.mouse-trail{
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.mouse-trail span{
+  position: absolute;
+  height: 3px;
+  border-radius: 999px;
+  transform-origin: left center;
+  background: linear-gradient(
+    90deg,
+    rgba(255,60,172,0.85),
+    rgba(0,234,255,0.75)
+  );
+}
+
+/* =========================
+   おすすめバッジ（確実にフェードインする版）
+   ========================= */
+.genre-list .badge{
+  display:inline-flex;
+  align-items:center;
+  padding:4px 10px;
+  font-size:12px;
+  font-weight:700;
+  border-radius:999px;
+  color:#fff;
+  background:linear-gradient(
+    90deg,
+    var(--accent-pink),
+    var(--accent-cyan)
+  );
+
+  opacity:0;
+  visibility:hidden;
+  filter:blur(2px);
+  transform:translateY(6px);
+
+  transition:
+    opacity .4s ease,
+    filter .4s ease,
+    transform .4s ease,
+    visibility 0s linear .4s;
+}
+
+/* ✅ hoverしたら必ず表示 */
+.genre-list li:hover .badge{
+  opacity:1;
+  visibility:visible;
+  filter:blur(0);
+  transform:translateY(0);
+  transition-delay:0s;
+}
+
+/* ✅ hover解除時の余韻 */
+.genre-list li:not(:hover) .badge{
+  opacity:0.35;
+  filter:blur(1.6px);
+  transform:translateY(2px);
+}

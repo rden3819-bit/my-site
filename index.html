@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eita / Video Editor</title>
+
+<style>
+:root{
+  --text:#222;
+  --sub:#555;
+  --accent-pink:#ff3cac;
+  --accent-cyan:#00eaff;
+  --light:#f3f3f3;
+}
+*{box-sizing:border-box;}
+
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+  color:var(--text);
+  line-height:1.7;
+  background:#ffffff;
+  position:relative;
+  overflow-x:hidden;
+}
+
+/* ===== 背景：レインボー螺旋 ===== */
+body::before{
+  content:"";
+  position:fixed;
+  inset:-70%;
+  pointer-events:none;
+  z-index:-1;
+  background:
+    conic-gradient(from 0deg at 15% 85%, rgba(255,60,172,.22), rgba(0,234,255,.18), rgba(168,108,255,.22), rgba(255,60,172,.22)),
+    conic-gradient(from 120deg at 35% 65%, rgba(0,234,255,.18), rgba(255,60,172,.14), rgba(168,108,255,.18), rgba(0,234,255,.18)),
+    conic-gradient(from 240deg at 55% 45%, rgba(168,108,255,.14), rgba(0,234,255,.12), rgba(255,60,172,.14), rgba(168,108,255,.14));
+  filter:blur(90px);
+  opacity:.4;
+  animation:spiralMove 80s linear infinite;
+}
+@keyframes spiralMove{
+  to{transform:translate(12%,-12%) rotate(360deg);}
+}
+
+/* ===== 共通 ===== */
+section{
+  padding:72px 20px;
+  max-width:1100px;
+  margin:0 auto;
+}
+h1,h2,h3{margin:0 0 24px;line-height:1.3;}
+h2{font-size:28px;text-align:center;}
+p{color:var(--sub);}
+.center{text-align:center;}
+
+/* ===== 中央レインボーリング ===== */
+.ring-wrap{
+  display:flex;
+  justify-content:center;
+  margin:40px 0;
+}
+.ring{
+  width:220px;
+  aspect-ratio:1/1;
+  border-radius:50%;
+  background:conic-gradient(var(--accent-pink),var(--accent-cyan),#a86cff,var(--accent-pink));
+  display:grid;
+  place-items:center;
+  animation:spin 12s linear infinite;
+  box-shadow:0 0 18px rgba(255,60,172,.35);
+}
+.ring::after{
+  content:"";
+  width:150px;
+  height:150px;
+  background:#fff;
+  border-radius:50%;
+}
+@keyframes spin{
+  to{transform:rotate(360deg);}
+}
+
+/* ===== iframeは未使用なので非表示 ===== */
+iframe{display:none;}
+
+/* ===== 価格 ===== */
+.price-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:24px;
+  margin-top:40px;
+}
+.plan{
+  background:var(--light);
+  padding:28px;
+  border-radius:20px;
+  position:relative;
+  transition:.3s;
+}
+.plan:hover{transform:translateY(-4px);}
+.badge{
+  position:absolute;
+  top:-12px;left:20px;
+  background:var(--accent-cyan);
+  color:#000;
+  padding:4px 10px;
+  font-size:12px;
+  border-radius:999px;
+}
+.price del{color:#999;}
+.sale{color:#e60000;font-size:28px;font-weight:700;}
+.gold{
+  border:2px solid var(--accent-pink);
+  box-shadow:0 0 28px rgba(255,60,172,.35);
+}
+
+/* ===== ミニCTA ===== */
+.mini-cta{
+  background:#fafafa;
+  border-radius:28px;
+  padding:48px 20px;
+  margin:80px auto;
+}
+.mini-cta p{font-weight:700;}
+.mini-cta button{
+  margin-top:24px;
+  padding:16px 48px;
+  border:none;
+  border-radius:999px;
+  font-size:16px;
+  font-weight:700;
+  color:#fff;
+  cursor:pointer;
+  background:linear-gradient(90deg,var(--accent-pink),var(--accent-cyan));
+  transition:.25s;
+}
+.mini-cta button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 28px rgba(255,60,172,.45);
+}
+
+/* ===== Contact ===== */
+.contact{
+  background:#fafafa;
+  border-radius:24px;
+}
+.contact a{
+  display:inline-block;
+  margin-top:24px;
+  padding:16px 36px;
+  border-radius:999px;
+  font-weight:700;
+  color:#fff;
+  text-decoration:none;
+  background:linear-gradient(90deg,var(--accent-pink),var(--accent-cyan));
+}
+
+@media(max-width:600px){
+  section{padding:56px 16px;}
+  h2{font-size:24px;}
+}
+</style>
+
+<link rel="stylesheet" href="css/effects.css">
+</head>
+
+<body>
+
+<section class="center">
+  <h1>Eita / Video Editor</h1>
+  <p>歌い手の世界観に合わせたMV制作♫<br>現在、復帰期間中につき半額対応!</p>
+  <div class="ring-wrap">
+    <div class="ring"></div>
+  </div>
+</section>
+
+<section>
+  <h2>About</h2>
+  <p class="center">
+    歌ってみたMVを中心に、楽曲や歌詞、雰囲気に合わせた世界観重視の編集。<br>
+    演出にこだわった印象に残る演出を心がけています。
+  </p>
+</section>
+
+<section class="genres">
+  <h2>対応ジャンル</h2>
+  <ul class="genre-list">
+    <li class="main">
+      <div class="title">歌ってみたMV <span class="badge">おすすめ</span></div>
+      <p>世界観重視の編集で魅力を最大化</p>
+    </li>
+    <li><div class="title">ティザーPV</div><p>短時間で印象を残す構成</p></li>
+    <li><div class="title">解説動画</div><p>分かりやすさ優先</p></li>
+    <li><div class="title">切り抜き動画</div><p>テンポ重視</p></li>
+    <li><div class="title">キル集</div><p>演出込みで対応</p></li>
+  </ul>
+</section>
+
+<section class="mini-cta center">
+  <p>＼ 見積もり無料・24h以内返信 ／</p>
+  <button data-scroll="contact">相談する</button>
+</section>
+
+<section>
+  <h2>料金プラン</h2>
+  <div class="price-grid">
+    <div class="plan gold"><span class="badge">復帰記念・期間限定！</span><h3>ゴールド</h3><p><del>¥20,000</del> → <span class="sale">¥15,000</span></p></div>
+    <div class="plan"><span class="badge">復帰記念・期間限定！</span><h3>シルバー</h3><p><del>¥10,000</del> → <span class="sale">¥5,000</span></p></div>
+    <div class="plan"><span class="badge">復帰記念・期間限定！</span><h3>ブロンズ</h3><p><span class="sale">¥2,000〜</span></p></div>
+  </div>
+</section>
+
+<section class="contact center" id="contact">
+  <h2>Contact</h2>
+  <p>まずはご相談だけでもOKです〇</p>
+  <a href="mailto:eita00eizo@gmail.com">お問い合わせはこちら</a>
+</section>
+
+<script src="js/effects.js"></script>
+<script>
+document.querySelectorAll('[data-scroll]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.getElementById(btn.dataset.scroll).scrollIntoView({behavior:'smooth'});
+  });
+});
+</script>
+
+</body>
+</html>
